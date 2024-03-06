@@ -1,8 +1,6 @@
 package mvc;
-import tools.Publisher;
+import java.io.Serializable;
 
-public class Model extends Publisher{
-    public void update(){
-        notifySubscribers();
-    }
+public abstract class Model extends Publisher implements Serializable {
+
 }

@@ -6,25 +6,25 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AppPanel  extends JPanel implements ActionListener {
-      private final Model model;
-      private final ControlPanel controls;
-      private final View view;
+      public Model model;
+      public ControlPanel controls;
+      public View view;
 
     public AppPanel() {
-        model = new Model();
-        view = new View(model);
-        controls = new ControlPanel();
-        this.setLayout((new GridLayout(1, 2)));
-        this.add(controls);
-        this.add(view);
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container cp = frame.getContentPane();
-        cp.add(this);
-        frame.setJMenuBar(this.createMenuBar());
-        frame.setTitle("MiniMac");
-        frame.setSize(1000, 650);
-        frame.setVisible(true);
+//        model = new Model();
+//        view = new View(model);
+//        controls = new ControlPanel();
+//        this.setLayout((new GridLayout(1, 2)));
+//        this.add(controls);
+//        this.add(view);
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Container cp = frame.getContentPane();
+//        cp.add(this);
+//        frame.setJMenuBar(this.createMenuBar());
+//        frame.setTitle("MiniMac");
+//        frame.setSize(1000, 650);
+//        frame.setVisible(true);
     }
 
     protected JMenuBar createMenuBar() {

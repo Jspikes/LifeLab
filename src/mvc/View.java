@@ -1,20 +1,14 @@
 package mvc;
 
-import tools.Subscriber;
-
 import javax.swing.*;
-import javax.swing.border.Border;
-import java.awt.*;
 
 public class View extends JPanel implements Subscriber {
-    private final Model model;
-//    private final JList<String> memList = new JList<>();
-//    private final JList<String> progList = new JList<>();
+    public Model model;
 
 
-    public View(Model model) {
-        this.model = model;
-        model.subscribe(this);
+    public View() {
+//        this.model = model;
+//        model.subscribe(this);
 //        Border blackline = BorderFactory.createLineBorder(Color.black);
 //        setBorder(blackline);
 //        setBackground(Color.WHITE);
