@@ -5,12 +5,12 @@ import java.util.*;
 import java.io.*;
 import mvc.*;
 
-abstract class Cell extends Publisher implements Serializable {
+public abstract class Cell extends Publisher implements Serializable {
 
     protected int row = 0, col = 0;
     protected Set<Cell> neighbors = new HashSet<Cell>();
-    protected Grid myGrid = null;
-    protected Cell partner = null;
+    public Grid myGrid = null;
+    public Cell partner = null;
 
 
     // choose a random neighbor as a partner
@@ -45,7 +45,6 @@ abstract class Cell extends Publisher implements Serializable {
     public abstract void nextState();
     // set status to a random or initial value
     public abstract void reset(boolean randomly);
-    public abstract Color getColor();
-    public abstract int getStatus();
-
+    public int getStatus() { return 0; }
+    public Color getColor() { return Color.GREEN; }
 }
