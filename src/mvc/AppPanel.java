@@ -6,11 +6,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class AppPanel  extends JPanel implements ActionListener {
-      public Model model;
-      public View view;
 
-    public AppPanel() {
-        view = new View(model);
+    Model model;
+    View view;
+    AppFactory factory;
+
+    public AppPanel(AppFactory factory) {
+        Model model = factory.makeModel();
+        View view = factory.makeView();
         this.setLayout((new GridLayout(1, 2)));
         this.add(view);
         JFrame frame = new JFrame();
@@ -18,7 +21,7 @@ public class AppPanel  extends JPanel implements ActionListener {
         Container cp = frame.getContentPane();
         cp.add(this);
         frame.setJMenuBar(this.createMenuBar());
-        frame.setTitle("");
+        frame.setTitle(factory.getTitle());
         frame.setSize(1000, 650);
         frame.setVisible(true);
     }
@@ -27,7 +30,7 @@ public class AppPanel  extends JPanel implements ActionListener {
         JMenuBar result = new JMenuBar();
         JMenu fileMenu = Utilities.makeMenu("File", new String[]{"New", "Save", "Open", "Quit"}, this);
         result.add(fileMenu);
-        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{}, this);
+        JMenu editMenu = Utilities.makeMenu("Edit", factory.getEditCommands(), this);
         result.add(editMenu);
         JMenu helpMenu = Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
         result.add(helpMenu);
@@ -38,50 +41,22 @@ public class AppPanel  extends JPanel implements ActionListener {
         String cmmd = e.getActionCommand();
         try {
             switch (cmmd) {
-//                case "Run 1": {
-//                    grid.updateLoop(1);
-//                }
-//                case "Run 50": {
-//                    grid.updateLoop(50);
-//                }
-                case "New": {
+                case "New", "Open", "Save": {
                     break;
                 }
-                case "Open": {
-
-                    break;
-                }
-//                case "Run": {
-////                    mac.execute();
-//                    break;
-//                }
-//                case "Clear": {
-//                    mac.clear();
-//                    break;
-//                }
-                case "Save": {
-                    break;
-                }
-
                 case "Quit": {
                     System.exit(0);
                     break;
                 }
-
                 case "About": {
-                    Utilities.inform("Spikes/Nassimi, 2024. If anyone asks, rights are reserved.");
+                    Utilities.inform(factory.about());
                     break;
                 }
-
                 case "Help": {
-                    String[] cmmds = new String[]{
-                            "Can I help you?"
-                    };
+                    String[] cmmds = factory.getHelp();
                     Utilities.inform(cmmds);
                     break;
-
                 }
-
                 default: {
                     throw new Exception("Unrecognized command: " + cmmd);
                 }
@@ -92,16 +67,16 @@ public class AppPanel  extends JPanel implements ActionListener {
         }
     }
 
-//    class ControlPanel extends JPanel {
-//        public ControlPanel() {
-//            setBackground(Color.LIGHT_GRAY);
-//            JPanel p = new JPanel();
-//            p.setBackground(Color.LIGHT_GRAY);
-//            add(p);
-//        }
-//    }
-
-    public static void main(String[] args) {
-        AppPanel app = new AppPanel();
+    class ControlPanel extends JPanel {
+        public ControlPanel() {
+            setBackground(Color.LIGHT_GRAY);
+            JPanel p = new JPanel();
+            p.setBackground(Color.LIGHT_GRAY);
+            add(p);
+        }
     }
+
+//    public static void main(String[] args) {
+//        AppPanel app = new AppPanel();
+//    }
 }

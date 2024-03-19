@@ -5,15 +5,16 @@ import javax.swing.*;
 import mvc.*;
 import java.awt.*;
 
-public class GridView  extends View {
+public class GridView extends View {
 
     private CellView cellViews[][];
     private int dim;
 
     private Grid grid;
 
-    public GridView(Model model) {
-        grid = (Grid) model;
+    public GridView(Grid grid) {
+        super(grid);
+        this.grid = grid;
         dim = grid.dim;
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {

@@ -7,7 +7,6 @@ import java.awt.*;
 public class View extends JPanel implements Subscriber {
     public Model model;
 
-
     public View(Model model) {
         this.model = model;
         model.subscribe(this);

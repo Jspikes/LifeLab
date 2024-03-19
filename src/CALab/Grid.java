@@ -97,15 +97,30 @@ public abstract class Grid extends Model {
         // cell phases:
 
         public void observe () {
-            // call each cell's observe method and notify subscribers
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    cells[i][j].observe();
+                }
+            }
+            notifySubscribers();
         }
 
         public void interact () {
-            // ???
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    cells[i][j].interact();
+                }
+            }
+            notifySubscribers();
         }
 
         public void update () {
-            // ???
+            for (int i = 0; i < dim; i++) {
+                for (int j = 0; j < dim; j++) {
+                    cells[i][j].update();
+                }
+            }
+            notifySubscribers();
         }
 
         public void updateLoop ( int cycles){
