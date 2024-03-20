@@ -14,14 +14,15 @@ public class Agent extends Cell {
         ambience = 0;
         for(Cell a: neighbors)
         {
-            ambience += a.getStatus();
+            if(a.getStatus() == status) {
+                ambience++;
+            }
         }
     }
 
     @Override
     public void update() {
-        if(Society.rebirth.contains(ambience)) {status = 1;}
-        if(Society.death.contains(ambience)) {status = 0;}
+        if(ambience <= neighbors.size()/2){nextState();}
     }
     @Override
     public void interact() {}
@@ -40,7 +41,7 @@ public class Agent extends Cell {
 
     @Override
     public Color getColor() {
-        if(status == 1) {return Color.GREEN;}
+        if(status == 1) {return Color.BLUE;}
         else {return Color.RED;}
     }
 

@@ -30,7 +30,6 @@ public class Society extends Grid {
                 return agent;
             }
         }
-
         agent.status = 0;
         agent.myGrid = this;
         return agent;

@@ -2,9 +2,9 @@ package LifeLab;
 
 import CALab.GridPanel;
 
-public class LifeLab {
+public class VotingLab {
     public static void main (String[] args){
-        LifeFactory factory = new LifeFactory();
+        VotingFactory factory = new VotingFactory();
         GridPanel app = new GridPanel(factory);
     }
 }
