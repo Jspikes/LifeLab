@@ -1,2 +1,3 @@
-# CALab
- Student Project for CS151 S2024
+# LifeLab
+ Student Project for CS 151 at San Jose State University, Spring 2024
+ Spikes/Nassimi
