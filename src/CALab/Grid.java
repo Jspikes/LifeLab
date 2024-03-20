@@ -1,6 +1,7 @@
 package CALab;
 
 import java.util.*;
+
 import mvc.*;
 
 public abstract class Grid extends Model {
@@ -50,81 +51,80 @@ public abstract class Grid extends Model {
     }
 
 
-        // called when Populate button is clicked
-        public void repopulate (boolean randomly){
-            for (int i = 0; i < dim; i++) {
-                for (int j = 0; j < dim; j++) {
-                    cells[i][j].reset(randomly);
-                }
+    // called when Populate button is clicked
+    public void repopulate(boolean randomly) {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                cells[i][j].reset(randomly);
             }
-            notifySubscribers();
         }
+        notifySubscribers();
+    }
 
 
-
-        public Set<Cell> getNeighbors (Cell asker,int radius){
-            Set<Cell> neighbors = new HashSet<>();
-            int imin = asker.row - radius;
-            int imax = asker.row + radius;
-            int jmin = asker.col - radius;
-            int jmax = asker.col + radius;
-            if (imin < 0) {
-                imin = 0;
-            }
-            if (imax >= dim) {
-                imax = dim - 1;
-            }
-            if (jmin < 0) {
-                jmin = 0;
-            }
-            if (jmax >= dim) {
-                jmax = dim - 1;
-            }
-            for (int i = imin; i <= imax; i++) {
-                for (int j = jmin; j <= jmax; j++) {
-                    neighbors.add(cells[i][j]);
-                }
-            }
-            neighbors.remove(asker);
-            return neighbors;
+    public Set<Cell> getNeighbors(Cell asker, int radius) {
+        Set<Cell> neighbors = new HashSet<>();
+        int imin = asker.row - radius;
+        int imax = asker.row + radius;
+        int jmin = asker.col - radius;
+        int jmax = asker.col + radius;
+        if (imin < 0) {
+            imin = 0;
         }
-
-        public void observe () {
-            for (int i = 0; i < dim; i++) {
-                for (int j = 0; j < dim; j++) {
-                    cells[i][j].observe();
-                }
-            }
-            notifySubscribers();
+        if (imax >= dim) {
+            imax = dim - 1;
         }
-
-        public void interact () {
-            for (int i = 0; i < dim; i++) {
-                for (int j = 0; j < dim; j++) {
-                    cells[i][j].interact();
-                }
-            }
-            notifySubscribers();
+        if (jmin < 0) {
+            jmin = 0;
         }
-
-        public void update () {
-            for (int i = 0; i < dim; i++) {
-                for (int j = 0; j < dim; j++) {
-                    cells[i][j].update();
-                }
-            }
-            notifySubscribers();
+        if (jmax >= dim) {
+            jmax = dim - 1;
         }
+        for (int i = imin; i <= imax; i++) {
+            for (int j = jmin; j <= jmax; j++) {
+                neighbors.add(cells[i][j]);
+            }
+        }
+        neighbors.remove(asker);
+        return neighbors;
+    }
 
-        public void updateLoop ( int cycles){
+    public void observe() {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                cells[i][j].observe();
+            }
+        }
+        notifySubscribers();
+    }
+
+    public void interact() {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                cells[i][j].interact();
+            }
+        }
+        notifySubscribers();
+    }
+
+    public void update() {
+        for (int i = 0; i < dim; i++) {
+            for (int j = 0; j < dim; j++) {
+                cells[i][j].update();
+            }
+        }
+        notifySubscribers();
+    }
+
+    public void updateLoop(int cycles) {
+        observe();
+        for (int cycle = 0; cycle < cycles; cycle++) {
             observe();
-            for (int cycle = 0; cycle < cycles; cycle++) {
-                observe();
-                interact();
-                update();
-                time++;
-                System.out.println("time = " + time);
-            }
+            interact();
+            update();
+            time++;
+            System.out.println("time = " + time);
         }
     }
+}
 

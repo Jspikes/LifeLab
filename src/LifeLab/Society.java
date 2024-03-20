@@ -1,6 +1,7 @@
 package LifeLab;
 
 import CALab.*;
+
 import java.util.*;
 
 public class Society extends Grid {
@@ -22,7 +23,7 @@ public class Society extends Grid {
     public Agent makeCell(boolean uniform) {
         Agent agent = new Agent();
 
-        if(!uniform) {
+        if (!uniform) {
             int d100 = (int) Math.round(Math.random() * 100);
             if (d100 < percentAlive) {
                 agent.status = 1;

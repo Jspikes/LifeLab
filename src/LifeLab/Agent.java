@@ -12,19 +12,25 @@ public class Agent extends Cell {
     @Override
     public void observe() {
         ambience = 0;
-        for(Cell a: neighbors)
-        {
+        for (Cell a : neighbors) {
             ambience += a.getStatus();
         }
     }
 
     @Override
     public void update() {
-        if(Society.rebirth.contains(ambience)) {status = 1;}
-        if(Society.death.contains(ambience)) {status = 0;}
+        if (Society.rebirth.contains(ambience)) {
+            status = 1;
+        }
+        if (Society.death.contains(ambience)) {
+            status = 0;
+        }
     }
+
     @Override
-    public void interact() {}
+    public void interact() {
+    }
+
     @Override
     public void nextState() {
         status ^= 1;
@@ -32,16 +38,20 @@ public class Agent extends Cell {
 
     @Override
     public void reset(boolean randomly) {
-        if(randomly) {
+        if (randomly) {
             status = (int) Math.round(Math.random());
+        } else {
+            status = 0;
         }
-        else {status = 0;}
     }
 
     @Override
     public Color getColor() {
-        if(status == 1) {return Color.GREEN;}
-        else {return Color.RED;}
+        if (status == 1) {
+            return Color.GREEN;
+        } else {
+            return Color.RED;
+        }
     }
 
     @Override

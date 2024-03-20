@@ -15,7 +15,8 @@ public class View extends JPanel implements Subscriber {
         setBackground(Color.WHITE);
         setSize(500, 600);
     }
-        public void update() {
-            repaint();
-        }
+
+    public void update() {
+        repaint();
     }
+}

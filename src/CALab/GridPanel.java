@@ -5,14 +5,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 import mvc.*;
-public class GridPanel extends AppPanel{
 
-    public static GridFactory factory;
+public class GridPanel extends AppPanel {
+
+    public GridFactory factory;
     ControlPanel controls;
     public Grid grid;
 
     public GridPanel(AppFactory factory) {
         super(factory);
+        this.factory = (GridFactory) factory;
         grid = (Grid) model;
         controls = new ControlPanel();
         this.add(controls, 0);
@@ -27,22 +29,22 @@ public class GridPanel extends AppPanel{
                     Utilities.inform("It is now safe to power down your grid.");
                     break;
                 }
-                case "RUN1": {
+                case "Run 1": {
                     RunCommand command = new RunCommand(1);
                     command.execute(grid);
                     break;
                 }
-                case "RUN50": {
+                case "Run 50": {
                     RunCommand command = new RunCommand(50);
                     command.execute(grid);
                     break;
                 }
-                case "POPULATE": {
+                case "Populate": {
                     PopulateCommand command = new PopulateCommand(true);
                     command.execute(grid);
                     break;
                 }
-                case "New", "Open", "CLEAR": {
+                case "New", "Open", "Clear": {
                     ClearCommand command = new ClearCommand();
                     command.execute(grid);
                     break;
@@ -69,6 +71,7 @@ public class GridPanel extends AppPanel{
             Utilities.error(ex);
         }
     }
+
     class ControlPanel extends JPanel {
         public ControlPanel() {
             setBackground(Color.LIGHT_GRAY);
@@ -76,10 +79,10 @@ public class GridPanel extends AppPanel{
             p.setBackground(Color.LIGHT_GRAY);
             add(p);
             p.setLayout(new GridLayout(2, 2, 300, 200));
-            JButton run1 = new JButton("RUN1");
-            JButton run50 = new JButton("RUN50");
-            JButton populate = new JButton("POPULATE");
-            JButton clear = new JButton("CLEAR");
+            JButton run1 = new JButton("Run 1");
+            JButton run50 = new JButton("Run 50");
+            JButton populate = new JButton("Populate");
+            JButton clear = new JButton("Clear");
             run1.addActionListener(GridPanel.this);
             run50.addActionListener(GridPanel.this);
             populate.addActionListener(GridPanel.this);
@@ -90,8 +93,4 @@ public class GridPanel extends AppPanel{
             p.add(clear);
         }
     }
-//    public static void main(String[] args) {
-//        GridPanel grid = new GridPanel(factory);
-//    }
-
 }

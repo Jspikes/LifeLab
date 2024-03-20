@@ -3,6 +3,7 @@ package CALab;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+
 import mvc.*;
 
 
@@ -11,18 +12,20 @@ public class CellView extends JButton implements ActionListener, Subscriber {
 
     public CellView(Cell c) {
         myCell = c;
-        if (c != null) { c.subscribe(this); }
+        if (c != null) {
+            c.subscribe(this);
+        }
         this.addActionListener(this);
     }
 
-    public CellView() { this(null); }
+    public CellView() {
+        this(null);
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         myCell.nextState(); // changes the state of myCell
-        setBackground(myCell.getColor());
-        setBorder(BorderFactory.createLineBorder(Color.black));
-        setText("" + myCell.getStatus());
+        update();
     }
 
     // called by notifySubscribers and GridView.update

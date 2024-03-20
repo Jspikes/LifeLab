@@ -1,6 +1,7 @@
 package CALab;
 
 import mvc.*;
+
 import java.awt.*;
 
 public class GridView extends View {
@@ -12,7 +13,7 @@ public class GridView extends View {
         super(grid);
         dim = grid.dim;
         cellViews = new CellView[dim][dim];
-        this.setLayout((new GridLayout(dim,dim)));
+        this.setLayout((new GridLayout(dim, dim)));
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 Cell cell = grid.getCell(i, j);
@@ -26,7 +27,7 @@ public class GridView extends View {
         update();
     }
 
-    public void update(){
+    public void update() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
                 cellViews[i][j].update();
