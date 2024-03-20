@@ -10,8 +10,8 @@ public class GridFactory implements AppFactory {
     }
 
     @Override
-    public View makeView() {
-        return new GridView(this.makeModel());
+    public View makeView(Model model) {
+        return new GridView((Grid) model);
     }
 
     @Override

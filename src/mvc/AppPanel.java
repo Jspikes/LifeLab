@@ -7,23 +7,24 @@ import java.awt.event.ActionListener;
 
 public class AppPanel  extends JPanel implements ActionListener {
 
-    Model model;
-    View view;
+    public Model model;
+    public View view;
     AppFactory factory;
 
-    public AppPanel() {
-        this.setLayout((new GridLayout(1, 2)));
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container cp = frame.getContentPane();
-        cp.add(this);
-        frame.setSize(1000, 650);
-        frame.setVisible(true);
-    }
+//    public AppPanel() {
+//        this.setLayout((new GridLayout(1, 2)));
+//        JFrame frame = new JFrame();
+//        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        Container cp = frame.getContentPane();
+//        cp.add(this);
+//        frame.setSize(1000, 650);
+//        frame.setVisible(true);
+//    }
 
     public AppPanel(AppFactory factory) {
         this.factory = factory;
-        View view = factory.makeView();
+        model = factory.makeModel();
+        view = factory.makeView(model);
         this.setLayout((new GridLayout(1, 2)));
         this.add(view);
         JFrame frame = new JFrame();
@@ -86,7 +87,7 @@ public class AppPanel  extends JPanel implements ActionListener {
 //        }
 //    }
 
-    public static void main(String[] args) {
-        AppPanel app = new AppPanel();
-    }
+//    public static void main(String[] args) {
+//        AppPanel app = new AppPanel();
+//    }
 }

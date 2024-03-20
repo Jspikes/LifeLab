@@ -8,24 +8,32 @@ import mvc.*;
 public abstract class Cell extends Publisher implements Serializable {
 
     protected int row = 0, col = 0;
-    protected Set<Cell> neighbors = new HashSet<Cell>();
+    protected Set<Cell> neighbors = new HashSet<>();
     public Grid myGrid = null;
     public Cell partner = null;
-
 
     // choose a random neighbor as a partner
     public void choosePartner() {
         if (partner == null && neighbors != null) {
-			/*
-			Set partner to null
-			Convert neighbors set to a local array
-			Starting at a random position in the array search for a neighbor without a partner
-			Make the first such neighbor (if any) the partner and set its partner field to this
-			*/
+            Cell[] partnerOptions = neighbors.toArray(new Cell[0]);
+            int randomStart = (int) Math.round(Math.random() * (partnerOptions.length + 1));
+            for (int i = randomStart; i < partnerOptions.length; i++) {
+                if(partnerOptions[i].partner == null) {
+                    partner = partnerOptions[i];
+                    partnerOptions[i].partner = this;
+                    return;
+                }
+            }
+            for (int i = 0; i < randomStart; i++) {
+                if(partnerOptions[i].partner == null) {
+                    partner = partnerOptions[i];
+                    partnerOptions[i].partner = this;
+                    return;
+                }
+            }
         }
 
     }
-
     public void unpartner() {
         if (partner != null) {
             if (partner.partner != null) {

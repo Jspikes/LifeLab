@@ -8,12 +8,12 @@ import mvc.*;
 public class GridPanel extends AppPanel{
 
     public static GridFactory factory;
-    public ControlPanel controls;
+    ControlPanel controls;
     public Grid grid;
 
     public GridPanel(AppFactory factory) {
         super(factory);
-        grid = (Grid) factory.makeModel();
+        grid = (Grid) model;
         controls = new ControlPanel();
         this.add(controls, 0);
     }
@@ -24,21 +24,28 @@ public class GridPanel extends AppPanel{
         try {
             switch (cmmd) {
                 case "Save": {
+                    Utilities.inform("It is now safe to power down your grid.");
                     break;
                 }
                 case "RUN1": {
-                    grid.updateLoop(1);
+                    RunCommand command = new RunCommand(1);
+                    command.execute(grid);
+                    break;
                 }
                 case "RUN50": {
-                    grid.updateLoop(50);
+                    RunCommand command = new RunCommand(50);
+                    command.execute(grid);
+                    break;
                 }
                 case "POPULATE": {
                     PopulateCommand command = new PopulateCommand(true);
                     command.execute(grid);
+                    break;
                 }
                 case "New", "Open", "CLEAR": {
-                    PopulateCommand command = new PopulateCommand(false);
+                    ClearCommand command = new ClearCommand();
                     command.execute(grid);
+                    break;
                 }
                 case "Quit": {
                     System.exit(0);
@@ -83,8 +90,8 @@ public class GridPanel extends AppPanel{
             p.add(clear);
         }
     }
-    public static void main(String[] args) {
-        GridPanel app = new GridPanel(factory);
-    }
+//    public static void main(String[] args) {
+//        GridPanel grid = new GridPanel(factory);
+//    }
 
 }

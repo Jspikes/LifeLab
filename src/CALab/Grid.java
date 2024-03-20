@@ -1,8 +1,6 @@
 package CALab;
 
-import java.awt.*;
 import java.util.*;
-import java.io.*;
 import mvc.*;
 
 public abstract class Grid extends Model {
@@ -28,19 +26,19 @@ public abstract class Grid extends Model {
     public Grid(int dim) {
         this.dim = dim;
         cells = new Cell[dim][dim];
-        populate(false);
+        populate();
     }
 
     public Grid() {
         this(20);
     }
 
-    protected void populate(boolean randomly) {
-        // 1. use makeCell to fill in cells
-        // 2. use getNeighbors to set the neighbors field of each cell
+    protected void populate() {
         for (int i = 0; i < dim; i++) {
             for (int j = 0; j < dim; j++) {
-                cells[i][j] = makeCell(!randomly);
+                cells[i][j] = makeCell(true);
+                cells[i][j].row = i;
+                cells[i][j].col = j;
             }
         }
         for (int i = 0; i < dim; i++) {
@@ -48,6 +46,7 @@ public abstract class Grid extends Model {
                 cells[i][j].neighbors = getNeighbors(cells[i][j], 1);
             }
         }
+        notifySubscribers();
     }
 
 
@@ -58,9 +57,7 @@ public abstract class Grid extends Model {
                     cells[i][j].reset(randomly);
                 }
             }
-            // randomly set the status of each cell or set status of all cells to 0
             notifySubscribers();
-            // notify subscribers
         }
 
 
@@ -75,15 +72,15 @@ public abstract class Grid extends Model {
                 imin = 0;
             }
             if (imax >= dim) {
-                imax = dim;
+                imax = dim - 1;
             }
             if (jmin < 0) {
                 jmin = 0;
             }
             if (jmax >= dim) {
-                jmax = dim;
+                jmax = dim - 1;
             }
-            for (int i = imin; i < imax; i++) {
+            for (int i = imin; i <= imax; i++) {
                 for (int j = jmin; j <= jmax; j++) {
                     neighbors.add(cells[i][j]);
                 }
@@ -91,10 +88,6 @@ public abstract class Grid extends Model {
             neighbors.remove(asker);
             return neighbors;
         }
-
-        // override these
-
-        // cell phases:
 
         public void observe () {
             for (int i = 0; i < dim; i++) {
@@ -126,9 +119,9 @@ public abstract class Grid extends Model {
         public void updateLoop ( int cycles){
             observe();
             for (int cycle = 0; cycle < cycles; cycle++) {
+                observe();
                 interact();
                 update();
-                observe();
                 time++;
                 System.out.println("time = " + time);
             }

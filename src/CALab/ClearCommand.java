@@ -5,6 +5,6 @@ import mvc.Model;
 public class ClearCommand extends Command {
     public void execute(Model model){
         Grid grid = (Grid) model;
-        grid.populate(false);
+        grid.repopulate(false);
     }
 }

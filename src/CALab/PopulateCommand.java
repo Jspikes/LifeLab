@@ -11,6 +11,6 @@ public class PopulateCommand extends Command {
     }
     public void execute(Model model){
         Grid grid = (Grid) model;
-        grid.populate(randomly);
+        grid.repopulate(randomly);
     }
 }
