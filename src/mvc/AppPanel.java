@@ -11,8 +11,18 @@ public class AppPanel  extends JPanel implements ActionListener {
     View view;
     AppFactory factory;
 
+    public AppPanel() {
+        this.setLayout((new GridLayout(1, 2)));
+        JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        Container cp = frame.getContentPane();
+        cp.add(this);
+        frame.setSize(1000, 650);
+        frame.setVisible(true);
+    }
+
     public AppPanel(AppFactory factory) {
-        Model model = factory.makeModel();
+        this.factory = factory;
         View view = factory.makeView();
         this.setLayout((new GridLayout(1, 2)));
         this.add(view);
@@ -67,16 +77,16 @@ public class AppPanel  extends JPanel implements ActionListener {
         }
     }
 
-    class ControlPanel extends JPanel {
-        public ControlPanel() {
-            setBackground(Color.LIGHT_GRAY);
-            JPanel p = new JPanel();
-            p.setBackground(Color.LIGHT_GRAY);
-            add(p);
-        }
-    }
-
-//    public static void main(String[] args) {
-//        AppPanel app = new AppPanel();
+//    class ControlPanel extends JPanel {
+//        public ControlPanel() {
+//            setBackground(Color.LIGHT_GRAY);
+//            JPanel p = new JPanel();
+//            p.setBackground(Color.LIGHT_GRAY);
+//            add(p);
+//        }
 //    }
+
+    public static void main(String[] args) {
+        AppPanel app = new AppPanel();
+    }
 }

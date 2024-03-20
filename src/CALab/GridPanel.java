@@ -7,82 +7,61 @@ import java.awt.event.ActionEvent;
 import mvc.*;
 public class GridPanel extends AppPanel{
 
-    public Grid grid;
+    public static GridFactory factory;
     public ControlPanel controls;
-    public GridPanel() {
-        view = new GridView(grid);
+    public Grid grid;
+
+    public GridPanel(AppFactory factory) {
+        super(factory);
+        grid = (Grid) factory.makeModel();
         controls = new ControlPanel();
-        this.setLayout((new GridLayout(1, 2)));
-        this.add(controls);
-        this.add(view);
-        JFrame frame = new JFrame();
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        Container cp = frame.getContentPane();
-        cp.add(this);
-        frame.setJMenuBar(this.createMenuBar());
-        frame.setTitle("Life");
-        frame.setSize(1000, 650);
-        frame.setVisible(true);
+        this.add(controls, 0);
     }
 
-    protected JMenuBar createMenuBar() {
-        JMenuBar result = new JMenuBar();
-        JMenu fileMenu = Utilities.makeMenu("File", new String[]{"New", "Save", "Open", "Quit"}, this);
-        result.add(fileMenu);
-        JMenu editMenu = Utilities.makeMenu("Edit", new String[]{"Run 1", "Run 50", "Populate", "Clear"}, this);
-        result.add(editMenu);
-        JMenu helpMenu = Utilities.makeMenu("Help", new String[]{"About", "Help"}, this);
-        result.add(helpMenu);
-        return result;
-    }
-
+    @Override
     public void actionPerformed(ActionEvent e) {
         String cmmd = e.getActionCommand();
         try {
             switch (cmmd) {
-                case "Run 1": {
-                    grid.updateLoop(1);
-                }
-                case "Run 50": {
-                    grid.updateLoop(50);
-                }
-                case "New": {
-                    break;
-                }
-                case "Open": {
-                    break;
-                }
                 case "Save": {
                     break;
+                }
+                case "RUN1": {
+                    grid.updateLoop(1);
+                }
+                case "RUN50": {
+                    grid.updateLoop(50);
+                }
+                case "POPULATE": {
+                    PopulateCommand command = new PopulateCommand(true);
+                    command.execute(grid);
+                }
+                case "New", "Open", "CLEAR": {
+                    PopulateCommand command = new PopulateCommand(false);
+                    command.execute(grid);
                 }
                 case "Quit": {
                     System.exit(0);
                     break;
                 }
                 case "About": {
-                    Utilities.inform("Spikes/Nassimi, 2024. If anyone asks, rights are reserved.");
+                    Utilities.inform(factory.about());
                     break;
                 }
                 case "Help": {
-                    String[] cmmds = new String[]{
-                            "Can I help you?"
-                    };
+                    String[] cmmds = factory.getHelp();
                     Utilities.inform(cmmds);
                     break;
-
                 }
-
                 default: {
                     throw new Exception("Unrecognized command: " + cmmd);
                 }
             }
+
         } catch (Exception ex) {
             Utilities.error(ex);
         }
     }
-
-
-
     class ControlPanel extends JPanel {
         public ControlPanel() {
             setBackground(Color.LIGHT_GRAY);
@@ -105,7 +84,7 @@ public class GridPanel extends AppPanel{
         }
     }
     public static void main(String[] args) {
-        GridPanel app = new GridPanel();
+        GridPanel app = new GridPanel(factory);
     }
 
 }
