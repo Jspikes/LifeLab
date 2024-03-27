@@ -64,25 +64,25 @@ public abstract class Grid extends Model {
 
     public Set<Cell> getNeighbors(Cell asker, int radius) {
         Set<Cell> neighbors = new HashSet<>();
-        int imin = asker.row - radius;
-        int imax = asker.row + radius;
-        int jmin = asker.col - radius;
-        int jmax = asker.col + radius;
-        if (imin < 0) {
-            imin = 0;
-        }
-        if (imax >= dim) {
-            imax = dim - 1;
-        }
-        if (jmin < 0) {
-            jmin = 0;
-        }
-        if (jmax >= dim) {
-            jmax = dim - 1;
-        }
+        int imin = asker.row-radius;
+        int imax = asker.row+radius;
+        int jmin = asker.col-radius;
+        int jmax = asker.col+radius;
+//        if (imin < 0) {
+//            imin = 0;
+//        }
+//        if (imax >= dim) {
+//            imax = dim - 1;
+//        }
+//        if (jmin < 0) {
+//            jmin = 0;
+//        }
+//        if (jmax >= dim) {
+//            jmax = dim - 1;
+//        }
         for (int i = imin; i <= imax; i++) {
             for (int j = jmin; j <= jmax; j++) {
-                neighbors.add(cells[i][j]);
+                neighbors.add(cells[Math.floorMod(i, dim)][Math.floorMod(j, dim)]);
             }
         }
         neighbors.remove(asker);
